@@ -216,3 +216,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local dataset files
+Dataset.zip
+data/*.csv
+data/*.zip
+Nino3.4_data.csv
+test_years.csv
+*Nino3.4_data_hidden*
+
+# Generated model artefacts
+models/
+scalers/
+*.keras
+*.h5
+*.pkl
+*.joblib
+
+# Notebook / Python cache
+.ipynb_checkpoints/
+__pycache__/
