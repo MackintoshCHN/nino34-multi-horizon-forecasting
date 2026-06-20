@@ -1,6 +1,6 @@
 # Niño 3.4 Multi-Horizon Forecasting with Neural Networks
 
-This repository presents a neural-network workflow for multi-horizon Niño 3.4 forecasting. It uses recent Niño 3.4 index values to predict the next six monthly horizons and compares independent, shared, weighted, and transfer-learning MLP strategies.
+This repository presents a neural-network workflow for multi-horizon Niño 3.4 forecasting. It uses recent Niño 3.4 index values to predict the next six monthly forecast horizons and compares independent, shared, weighted, and transfer-learning MLP strategies.
 
 ## Project Overview
 
@@ -18,7 +18,7 @@ The workflow compares:
 
 This repository does not include the original dataset files.
 
-The notebook expects a prepared supervised-learning CSV with monthly Niño 3.4 values, lag features, and six future monthly prediction targets. To rerun the notebook, provide the data in one of the following formats:
+The notebook expects a prepared supervised-learning CSV with monthly Niño 3.4 values, lag features, and six future monthly prediction targets. To rerun the notebook, provide the data locally using one of the following formats:
 
 ```text
 Dataset.zip
@@ -51,31 +51,33 @@ The notebook checks for the extracted CSV files first. If they are already avail
 
 A public-data version can be rebuilt from the NOAA PSL Niño 3.4 monthly time series:
 
+```text
 https://psl.noaa.gov/data/timeseries/month/Nino34_CPC/
+```
 
-The NOAA PSL file is a raw monthly time series, so it does not already contain the supervised-learning columns used by this project. To use it with this workflow, the monthly index values need to be converted into lag features and future forecast targets first.
+The NOAA PSL file is a raw monthly time series. It does not already contain the supervised-learning columns used by this project. To use it with this workflow, the monthly index values need to be converted into lag features and future forecast targets first. The train, validation, and test split logic should also be updated consistently after rebuilding the dataset.
 
 ## Repository Structure
 
 ```text
-.
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── Niño_3_4_Multi_Horizon_Forecasting_with_Neural_Networks.ipynb
+nino34-multi-horizon-forecasting/
 ├── data/
 │   └── README.md
-└── reports/
-    ├── single_output_mlp_metrics.csv
-    ├── multi_output_mlp_metrics.csv
-    ├── horizon_weighted_vs_multi_output_baseline.csv
-    ├── model_comparison_test_metrics.csv
-    ├── single_output_mlp_training_histories.png
-    ├── multi_output_mlp_test_scatter.png
-    └── horizon_weighted_multi_output_test_scatter.png
+├── reports/
+│   ├── horizon_weighted_multi_output_test_scatter.png
+│   ├── horizon_weighted_vs_multi_output_baseline.csv
+│   ├── model_comparison_test_metrics.csv
+│   ├── multi_output_mlp_metrics.csv
+│   ├── multi_output_mlp_test_scatter.png
+│   ├── single_output_mlp_metrics.csv
+│   └── single_output_mlp_training_histories.png
+├── .gitignore
+├── Niño_3_4_Multi_Horizon_Forecasting_with_Neural_Networks.ipynb
+├── README.md
+└── requirements.txt
 ```
 
-Trained model files, scaler objects, local datasets, and dataset archives are generated or provided separately and are intentionally excluded from version control.
+Trained model files, scaler objects, local datasets, dataset archives, and generated local export archives are intentionally excluded from version control.
 
 ## Method
 
@@ -168,6 +170,12 @@ The notebook installs or imports the required Python packages during execution. 
 requirements.txt
 ```
 
+For a clean environment, install the dependencies manually with:
+
+```bash
+pip install -r requirements.txt
+```
+
 ### 4. Run the notebook
 
 Run the notebook cells from top to bottom.
@@ -212,6 +220,45 @@ pip install -r requirements.txt
 
 Then update the notebook path configuration before running it locally.
 
+## Included Outputs
+
+The repository includes lightweight result files for inspection:
+
+| File                                                     | Description                                                             |
+| -------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `reports/single_output_mlp_metrics.csv`                  | Horizon-level metrics for single-output MLP models                      |
+| `reports/multi_output_mlp_metrics.csv`                   | Horizon-level metrics for the standard multi-output MLP                 |
+| `reports/horizon_weighted_vs_multi_output_baseline.csv`  | Comparison between standard and weighted multi-output models            |
+| `reports/model_comparison_test_metrics.csv`              | Combined test-set comparison across model families                      |
+| `reports/single_output_mlp_training_histories.png`       | Training-history plot for the single-output models                      |
+| `reports/multi_output_mlp_test_scatter.png`              | Predicted vs observed scatter plots for the standard multi-output model |
+| `reports/horizon_weighted_multi_output_test_scatter.png` | Predicted vs observed scatter plots for the horizon-weighted model      |
+
+These files are generated experiment outputs. They are not substitutes for the original dataset files.
+
+## Files Not Included
+
+The following files are intentionally excluded from this repository:
+
+```text
+Dataset.zip
+data/Nino3.4_data.csv
+data/test_years.csv
+Nino3.4_data_hidden.csv
+models/
+scalers/
+*.keras
+*.h5
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.zip
+```
+
+The repository does not include the original dataset, trained model files, scaler objects, or hidden evaluation files. The notebook is provided as a reproducible experiment outline and requires local data preparation before execution.
+
 ## Notes and Limitations
 
 * The repository includes implementation code, notebook outputs, metric tables, and result figures.
@@ -221,11 +268,18 @@ Then update the notebook path configuration before running it locally.
 * This is a compact neural-network forecasting experiment, not an operational ENSO forecasting system.
 * Results may vary slightly depending on random seeds, hardware, TensorFlow version, and dataset split.
 * The public NOAA PSL time series can be used to rebuild a similar supervised-learning table, but it requires preprocessing before it matches the modelling format used here.
+* The current notebook is Colab-first and may require path changes before local execution.
+
+## License and Reuse
+
+No open-source license is currently granted for this repository. The notebook, generated reports, and documentation are provided for reference only unless otherwise stated.
+
+External data sources remain governed by their original access terms and citation requirements. Raw data files, local generated datasets, trained models, scaler objects, and local export archives are not redistributed in this repository.
 
 ## References
 
 * NOAA Physical Sciences Laboratory. Niño 3.4 SST Index from the NOAA ERSST V5.
-  https://psl.noaa.gov/data/timeseries/month/Nino34_CPC/
+  `https://psl.noaa.gov/data/timeseries/month/Nino34_CPC/`
 
 * NOAA Physical Sciences Laboratory. Climate Indices: Monthly Atmospheric and Ocean Time Series.
-  https://psl.noaa.gov/data/timeseries/month/
+  `https://psl.noaa.gov/data/timeseries/month/`
