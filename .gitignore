@@ -217,22 +217,52 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Local dataset files
+# ------------------------------------------------------------
+
+# Project-specific: local data and generated artefacts
+
+# ------------------------------------------------------------
+
+# Local dataset files and archives
+
 Dataset.zip
 data/*.csv
 data/*.zip
+data/*.xlsx
+data/*.parquet
 Nino3.4_data.csv
 test_years.csv
 *Nino3.4_data_hidden*
+*hidden*
+
+# Keep lightweight documentation in data/
+
+!data/README.md
+!data/.gitkeep
 
 # Generated model artefacts
+
 models/
 scalers/
+checkpoints/
 *.keras
 *.h5
+*.hdf5
 *.pkl
 *.joblib
+*.onnx
+*.pt
+*.pth
 
-# Notebook / Python cache
-.ipynb_checkpoints/
-__pycache__/
+# Local experiment outputs
+
+runs/
+logs/
+tensorboard/
+wandb/
+mlruns/
+
+# System files
+
+.DS_Store
+Thumbs.db
