@@ -4,7 +4,7 @@ This folder is reserved for local dataset files used by the notebook.
 
 The required dataset files are not included in this repository. To rerun the notebook, provide the data locally using one of the options below.
 
-## Option 1: Use the dataset archive
+## Option 1: Use the Dataset Archive
 
 Place the archive in the project root:
 
@@ -14,7 +14,7 @@ Dataset.zip
 
 The notebook will extract the archive into this `data/` folder.
 
-## Option 2: Use extracted CSV files
+## Option 2: Use Extracted CSV Files
 
 Place the extracted CSV files directly under this folder:
 
@@ -57,6 +57,17 @@ The public NOAA file is a raw monthly time series. It does not already contain t
 
 To use it with this workflow, the monthly index values need to be converted into lag features and future forecast targets first. The train, validation, and test split logic should also be updated consistently after rebuilding the dataset.
 
-## Notes
+## Files Not Tracked
 
-Only lightweight documentation is tracked in this folder. Dataset files and dataset archives should be provided locally when rerunning the notebook.
+Dataset files and archives should be provided locally and should not be committed to version control.
+
+Examples of files that should remain local:
+
+```text
+Dataset.zip
+Nino3.4_data.csv
+test_years.csv
+Nino3.4_data_hidden.csv
+```
+
+Only lightweight documentation is tracked in this folder.
